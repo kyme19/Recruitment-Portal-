@@ -25,6 +25,15 @@ Route::get('/', function () {
 Route::get('/jobs/{id}', [App\Http\Controllers\JobController::class, 'show'])->name('jobs.show');
 Route::get('/job-listings', [JobListingController::class, 'index'])->name('job-listings.index');
 
+//  Registration view 
+
+// Display the registration form
+Route::get('register', function () {
+    return view('auth.register');
+})->name('register');
+
+// Handle the registration request
+Route::post('register', 'App\Http\Controllers\RegistrationController@store')->name('register.store');
 
 // for job listing
 // Job Listing Routes

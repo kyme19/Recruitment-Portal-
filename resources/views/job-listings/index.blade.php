@@ -38,6 +38,7 @@
                             <h6 class="card-subtitle mb-2 text-muted">{{ $jobListing->job_group }}</h6>
                             <p class="card-text">{{ $jobListing->duties }}</p>
                             <p class="card-text">{{ $jobListing->requirements }}</p>
+                            <a href="{{ route('register') }}" class="btn btn-primary">Apply</a>
                         </div>
                     </div>
                 </div>
