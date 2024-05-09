@@ -12,6 +12,7 @@
         </div>
     @endif
 
+
     <script>
     $(document).ready(function(){
         $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
@@ -24,6 +25,30 @@
         }, 3000);
     });
     </script>
+
+ <!-- Filter Form -->
+ <form action="{{ route('job-listings.index') }}" method="GET">
+    <div class="form-group">
+        <label for="position">Position:</label>
+        <select name="position" class="form-control">
+            <option value="">Select Position</option>
+            @foreach($positions as $position)
+                <option value="{{ $position }}" {{ request('position') == $position ? 'selected' : '' }}>{{ $position }}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="job_group">Job Group:</label>
+        <select name="job_group" class="form-control">
+            <option value="">Select Job Group</option>
+            @foreach($jobGroups as $jobGroup)
+                <option value="{{ $jobGroup }}" {{ request('job_group') == $jobGroup ? 'selected' : '' }}>{{ $jobGroup }}</option>
+            @endforeach
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+
 
     <div class="row">
         @if ($jobListings->isEmpty())

@@ -13,12 +13,6 @@ class JobListingController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function index()
-     {
-         $jobListings = JobListing::all();
- 
-         return view('job-listings.index', compact('jobListings'));
-     }
  
 
     
@@ -51,4 +45,30 @@ class JobListingController extends Controller
 
         return redirect()->route('job-listings.index');
     }
+
+
+
+    //filtering functionalitu 
+
+    public function index(Request $request)
+    {
+        $jobListings = JobListing::query();
+
+        // Apply filters if provided
+        if ($request->has('position')) {
+            $jobListings->where('position', $request->position);
+        }
+        if ($request->has('job_group')) {
+            $jobListings->where('job_group', $request->job_group);
+        }
+
+        $jobListings = $jobListings->get();
+
+        // Fetch distinct values for position and job group
+        $positions = JobListing::distinct()->pluck('position')->filter()->values();
+        $jobGroups = JobListing::distinct()->pluck('job_group')->filter()->values();
+
+        return view('job-listings.index', compact('jobListings', 'positions', 'jobGroups'));
+    }
 }
+
